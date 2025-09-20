@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wear Without Carbon Footprint</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Base Gradient Backgrounds */
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dbeafe 50%, #e0e7ff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gradient-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2316a34a' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+            pointer-events: none;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #16a34a 0%, #2563eb 50%, #7c3aed 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-gradient::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        /* Enhanced Card Hover Effects */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .card-hover:hover::before {
+            left: 100%;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Advanced Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .fade-in-scale {
+            animation: fadeInScale 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Loading Animations */
+        .loading-spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .pulse-dot {
+            animation: pulse-dot 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 80%, 100% {
+                transform: scale(0);
+                opacity: 0.7;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Progress Bar Enhancements */
+        .progress-bar {
+            transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.2) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.2) 75%, transparent 75%);
+            background-size: 30px 30px;
+            animation: progress-stripes 1s linear infinite;
+        }
+
+        @keyframes progress-stripes {
+            0% { background-position: 0 0; }
+            100% { background-position: 30px 0; }
+        }
+
+        /* Tab System Enhancements */
+        .tab-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: #1f2937;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #16a34a, #2563eb);
+            border-radius: 2px 2px 0 0;
+        }
+
+        .tab-btn:not(.active) {
+            color: #6b7280;
+        }
+
+        .tab-btn:not(.active):hover {
+            color: #374151;
+            background: rgba(255, 255, 255, 0.7);
+            transform: translateY(-1px);
+        }
+
+        .tab-btn.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* Notification System */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.error {
+            border-left: 4px solid #ef4444;
+        }
+
+        .notification.success {
+            border-left: 4px solid #10b981;
+        }
+
+        .notification.warning {
+            border-left: 4px solid #f59e0b;
+        }
+
+        /* Glassmorphism Effects */
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .glassmorphism-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Gradient Text Effects */
+        .gradient-text {
+            background: linear-gradient(135deg, #16a34a, #2563eb, #7c3aed);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-shift 3s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #16a34a, #2563eb);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #15803d, #1d4ed8);
+        }
+
+        /* Responsive Design Enhancements */
+        @media (max-width: 768px) {
+            .tab-btn {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.875rem;
+            }
+            
+            .tab-btn span {
+                display: none;
+            }
+            
+            .card-hover:hover {
+                transform: translateY(-4px) scale(1.01);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-gradient::before {
+                animation-duration: 2s;
+            }
+            
+            .notification {
+                right: 10px;
+                left: 10px;
+                transform: translateY(-100px);
+            }
+            
+            .notification.show {
+                transform: translateY(0);
+            }
+        }
+
+        /* Button Enhancements */
+        .btn-primary {
+            background: linear-gradient(135deg, #16a34a, #2563eb);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Upload Area Enhancement */
+        .upload-area {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .upload-area:hover {
+            border-color: #3b82f6;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(16, 185, 129, 0.05));
+        }
+
+        .upload-area.dragover {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.1);
+            transform: scale(1.02);
+        }
+
+        /* Stats Counter Animation */
+        .stat-counter {
+            font-feature-settings: "tnum";
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Micro Interactions */
+        .micro-bounce {
+            transition: transform 0.2s ease;
+        }
+
+        .micro-bounce:hover {
+            transform: scale(1.05);
+        }
+
+        .micro-bounce:active {
+            transform: scale(0.95);
+        }
+
+        /* Focus Styles for Accessibility */
+        .focus-visible:focus-visible {
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        /* Custom Radio/Checkbox Styles */
+        .custom-radio {
+            appearance: none;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid #d1d5db;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .custom-radio:checked {
+            border-color: #3b82f6;
+            background: #3b82f6;
+        }
+
+        .custom-radio:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg">
+    <!-- Notification System -->
+    <div id="notification" class="notification bg-white rounded-lg shadow-xl p-4 max-w-sm">
+        <div class="flex items-center space-x-3">
+            <i data-lucide="check-circle" class="w-5 h-5 text-green-500"></i>
+            <div>
+                <h4 class="font-medium text-gray-900" id="notification-title">Success</h4>
+                <p class="text-sm text-gray-600" id="notification-message">Action completed successfully</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="glassmorphism sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 hero-gradient rounded-xl flex items-center justify-center shadow-lg">
+                        <i data-lucide="leaf" class="w-7 h-7 text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+                            Wear Without Carbon Footprint
+                        </h1>
+                        <p class="text-sm text-gray-500">Sustainable Fashion Intelligence Platform</p>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#analyze" class="text-gray-600 hover:text-green-600 transition-colors">Analyze</a>
+                    <a href="#about" class="text-gray-600 hover:text-green-600 transition-colors">About</a>
+                    <a href="#impact" class="text-gray-600 hover:text-green-600 transition-colors">Impact</a>
+                    <button class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                        Get Started
+                    </button>
+                </div>
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-white/20 transition-colors">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
+                <a href="#analyze" class="block py-2 px-4 rounded-lg hover:bg-white/20 transition-colors">Analyze</a>
+                <a href="#about" class="block py-2 px-4 rounded-lg hover:bg-white/20 transition-colors">About</a>
+                <a href="#impact" class="block py-2 px-4 rounded-lg hover:bg-white/20 transition-colors">Impact</a>
+                <button class="w-full text-left py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
+                    Get Started
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="fade-in-up">
+                <h2 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+                    Fashion That
+                    <span class="bg-gradient-to-r from-green-500 to-blue-500 bg-clip-text text-transparent">
+                        Cares
+                    </span>
+                </h2>
+                <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                    Discover the true environmental impact of your wardrobe with AI-powered analysis. 
+                    Make sustainable choices that reduce your carbon footprint without sacrificing style.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="scrollToAnalyze()" class="hero-gradient text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-xl transition-all transform hover:scale-105">
+                        Analyze Your Clothes
+                    </button>
+                    <button onclick="scrollTo('#about')" class="bg-white text-gray-700 px-8 py-4 rounded-xl font-semibold text-lg border border-gray-200 hover:shadow-lg transition-all">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="fade-in-up">
+                    <div class="text-3xl md:text-4xl font-bold text-green-600 mb-2" data-count="10">0%</div>
+                    <p class="text-gray-600 text-sm md:text-base">of global carbon emissions from fashion</p>
+                </div>
+                <div class="fade-in-up" style="animation-delay: 0.1s">
+                    <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2" data-count="2.6">0B</div>
+                    <p class="text-gray-600 text-sm md:text-base">tons of CO₂ annually</p>
+                </div>
+                <div class="fade-in-up" style="animation-delay: 0.2s">
+                    <div class="text-3xl md:text-4xl font-bold text-purple-600 mb-2" data-count="92">0M</div>
+                    <p class="text-gray-600 text-sm md:text-base">tons of textile waste yearly</p>
+                </div>
+                <div class="fade-in-up" style="animation-delay: 0.3s">
+                    <div class="text-3xl md:text-4xl font-bold text-orange-600 mb-2" data-count="87">0%</div>
+                    <p class="text-gray-600 text-sm md:text-base">of clothes end up in landfills</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analysis Tool Section -->
+    <section id="analyze" class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h3 class="text-4xl font-bold text-gray-900 mb-4">Analyze Your Garment</h3>
+                <p class="text-xl text-gray-600">Upload a photo and get instant sustainability insights</p>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="flex flex-wrap justify-center space-x-1 bg-gray-100 p-1 rounded-xl mb-8 max-w-4xl mx-auto overflow-x-auto">
+                <button onclick="setActiveTab('scan')" id="tab-scan" class="tab-btn active flex items-center space-x-2 px-4 md:px-6 py-3 rounded-lg font-medium transition-all">
+                    <i data-lucide="camera" class="w-4 h-4"></i>
+                    <span>Scan Garment</span>
+                </button>
+                <button onclick="setActiveTab('results')" id="tab-results" class="tab-btn flex items-center space-x-2 px-4 md:px-6 py-3 rounded-lg font-medium transition-all disabled">
+                    <i data-lucide="trending-up" class="w-4 h-4"></i>
+                    <span>Analysis Results</span>
+                </button>
+                <button onclick="setActiveTab('recommendations')" id="tab-recommendations" class="tab-btn flex items-center space-x-2 px-4 md:px-6 py-3 rounded-lg font-medium transition-all disabled">
+                    <i data-lucide="check-circle" class="w-4 h-4"></i>
+                    <span>Recommendations</span>
+                </button>
+                <button onclick="setActiveTab('impact')" id="tab-impact" class="tab-btn flex items-center space-x-2 px-4 md:px-6 py-3 rounded-lg font-medium transition-all disabled">
+                    <i data-lucide="leaf" class="w-4 h-4"></i>
+                    <span>Environmental Impact</span>
+                </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="max-w-4xl mx-auto">
+                <!-- Scan Tab -->
+                <div id="content-scan" class="tab-content bg-white rounded-2xl shadow-xl p-8">
+                    <div id="upload-area" class="border-2 border-dashed border-gray-300 rounded-xl p-8 md:p-12 text-center hover:border-blue-400 transition-colors cursor-pointer">
+                        <i data-lucide="upload" class="w-12 h-12 text-gray-400 mx-auto mb-4"></i>
+                        <h4 class="text-lg font-medium text-gray-900 mb-2">Upload Garment Photo</h4>
+                        <p class="text-gray-500 mb-6">Take a clear photo of your clothing item including any labels</p>
+                        <input type="file" id="file-input" accept="image/*" class="hidden">
+                        <button onclick="document.getElementById('file-input').click()" class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors">
+                            Choose File
+                        </button>
+                        <p class="text-xs text-gray-400 mt-4">Supported formats: JPG, PNG, WebP (Max 10MB)</p>
+                    </div>
+
+                    <div id="image-preview" class="hidden mt-6">
+                        <div class="flex justify-center mb-6">
+                            <img id="preview-img" class="max-w-xs md:max-w-sm rounded-lg shadow-md">
+                        </div>
+                        <div class="text-center">
+                            <button onclick="analyzeGarment()" id="analyze-btn" class="bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600 transition-colors font-medium flex items-center space-x-2 mx-auto">
+                                <i data-lucide="zap" class="w-5 h-5"></i>
+                                <span>Analyze Sustainability</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="analyzing" class="hidden text-center py-8">
+                        <div class="loading-spinner w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+                        <h4 class="text-lg font-medium text-gray-900 mb-2">Analyzing Your Garment</h4>
+                        <p class="text-gray-600 mb-4">AI is processing material composition, production methods, and environmental impact...</p>
+                        <div class="max-w-md mx-auto">
+                            <div class="flex justify-between text-sm text-gray-500 mb-2">
+                                <span>Progress</span>
+                                <span id="progress-text">0%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div id="progress-bar" class="bg-blue-500 h-2 rounded-full progress-bar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Tab -->
+                <div id="content-results" class="tab-content hidden">
+                    <div class="space-y-6">
+                        <!-- Overview Cards -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover">
+                                <i data-lucide="leaf" class="w-8 h-8 text-green-500 mx-auto mb-2"></i>
+                                <h4 class="font-medium text-gray-900 mb-1">Sustainability Score</h4>
+                                <div class="text-2xl font-bold text-green-600">B+</div>
+                                <div class="text-sm text-gray-500">85% Sustainable</div>
+                            </div>
+                            
+                            <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover">
+                                <i data-lucide="trending-down" class="w-8 h-8 text-blue-500 mx-auto mb-2"></i>
+                                <h4 class="font-medium text-gray-900 mb-1">Carbon Footprint</h4>
+                                <div class="text-2xl font-bold text-blue-600">8.2</div>
+                                <div class="text-sm text-gray-500">kg CO₂</div>
+                            </div>
+                            
+                            <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover">
+                                <i data-lucide="recycle" class="w-8 h-8 text-purple-500 mx-auto mb-2"></i>
+                                <h4 class="font-medium text-gray-900 mb-1">Recyclability</h4>
+                                <div class="text-2xl font-bold text-purple-600">85%</div>
+                                <div class="text-sm text-gray-500">Post-consumer</div>
+                            </div>
+                            
+                            <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover">
+                                <i data-lucide="info" class="w-8 h-8 text-orange-500 mx-auto mb-2"></i>
+                                <h4 class="font-medium text-gray-900 mb-1">Material Source</h4>
+                                <div class="text-sm font-medium text-orange-700">Organic Cotton</div>
+                                <div class="text-xs text-gray-500">Certified Organic</div>
+                            </div>
+                        </div>
+
+                        <!-- Detailed Analysis -->
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="bg-white rounded-xl shadow-lg p-6">
+                                <h4 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                                    <i data-lucide="shirt" class="w-5 h-5 mr-2 text-blue-500"></i>
+                                    Garment Details
+                                </h4>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Type:</span>
+                                        <span class="font-medium">Cotton T-Shirt</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Material:</span>
+                                        <span class="font-medium">100% Organic Cotton</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Origin:</span>
+                                        <span class="font-medium">Turkey</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Sustainability Grade:</span>
+                                        <span class="font-bold text-green-600">B+</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white rounded-xl shadow-lg p-6">
+                                <h4 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                                    <i data-lucide="bar-chart-3" class="w-5 h-5 mr-2 text-blue-500"></i>
+                                    Carbon Footprint Breakdown
+                                </h4>
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm font-medium">Production</span>
+                                        <div class="flex items-center space-x-2">
+                                            <div class="w-24 md:w-32 bg-gray-200 rounded-full h-2">
+                                                <div class="bg-blue-500 h-2 rounded-full" style="width: 76%"></div>
+                                            </div>
+                                            <span class="text-sm text-gray-600 w-16 text-right">6.2 kg CO₂</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm font-medium">Transportation</span>
+                                        <div class="flex items-center space-x-2">
+                                            <div class="w-24 md:w-32 bg-gray-200 rounded-full h-2">
+                                                <div class="bg-blue-500 h-2 rounded-full" style="width: 13%"></div>
+                                            </div>
+                                            <span class="text-sm text-gray-600 w-16 text-right">1.1 kg CO₂</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm font-medium">Usage</span>
+                                        <div class="flex items-center space-x-2">
+                                            <div class="w-24 md:w-32 bg-gray-200 rounded-full h-2">
+                                                <div class="bg-blue-500 h-2 rounded-full" style="width: 9%"></div>
+                                            </div>
+                                            <span class="text-sm text-gray-600 w-16 text-right">0.7 kg CO₂</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm font-medium">Disposal</span>
+                                        <div class="flex items-center space-x-2">
+                                            <div class="w-24 md:w-32 bg-gray-200 rounded-full h-2">
+                                                <div class="bg-blue-500 h-2 rounded-full" style="width: 2%"></div>
+                                            </div>
+                                            <span class="text-sm text-gray-600 w-16 text-right">0.2 kg CO₂</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommendations Tab -->
+                <div id="content-recommendations" class="tab-content hidden">
+                    <div class="space-y-6">
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <h4 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                                <i data-lucide="lightbulb" class="w-5 h-5 mr-2 text-yellow-500"></i>
+                                Care Instructions
+                            </h4>
+                            <div class="grid gap-4">
+                                <div class="flex items-start space-x-3 p-4 bg-green-50 rounded-lg">
+                                    <i data-lucide="thermometer" class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0"></i>
+                                    <div>
+                                        <span class="font-medium text-gray-700">Wash in cold water (30°C)</span>
+                                        <p class="text-sm text-gray-600 mt-1">Reduces energy consumption by 60%</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3 p-4 bg-green-50 rounded-lg">
+                                    <i data-lucide="wind" class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0"></i>
+                                    <div>
+                                        <span class="font-medium text-gray-700">Air dry instead of tumble dryer</span>
+                                        <p class="text-sm text-gray-600 mt-1">Saves 2.3 kg CO₂ per wash cycle</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3 p-4 bg-green-50 rounded-lg">
+                                    <i data-lucide="heart" class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0"></i>
+                                    <div>
+                                        <span class="font-medium text-gray-700">Donate when no longer needed</span>
+                                        <p class="text-sm text-gray-600 mt-1">Extends garment lifecycle by average 2.2 years</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3 p-4 bg-green-50 rounded-lg">
+                                    <i data-lucide="search" class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0"></i>
+                                    <div>
+                                        <span class="font-medium text-gray-700">Look for recycled alternatives next time</span>
+                                        <p class="text-sm text-gray-600 mt-1">Can reduce footprint by up to 45%</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <h4 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                                <i data-lucide="shopping-bag" class="w-5 h-5 mr-2 text-blue-500"></i>
+                                Sustainable Alternatives
+                            </h4>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                                            <i data-lucide="leaf" class="w-6 h-6 text-green-600"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-medium text-gray-900">Patagonia Organic Tee</h5>
+                                            <p class="text-sm text-gray-600">100% Organic Cotton, Fair Trade</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-sm font-medium text-green-600">6.1 kg CO₂</div>
+                                        <div class="text-xs text-gray-500">26% less impact</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                            <i data-lucide="recycle" class="w-6 h-6 text-blue-600"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-medium text-gray-900">Eileen Fisher Renew Tee</h5>
+                                            <p class="text-sm text-gray-600">Recycled Cotton Blend</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-sm font-medium text-green-600">5.8 kg CO₂</div>
+                                        <div class="text-xs text-gray-500">29% less impact</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                                            <i data-lucide="star" class="w-6 h-6 text-purple-600"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-medium text-gray-900">Everlane Organic Crew</h5>
+                                            <p class="text-sm text-gray-600">GOTS Certified Organic</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-sm font-medium text-green-600">6.5 kg CO₂</div>
+                                        <div class="text-xs text-gray-500">21% less impact</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Impact Tab -->
+                <div id="content-impact" class="tab-content hidden">
+                    <div class="space-y-6">
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <h4 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                                <i data-lucide="bar-chart" class="w-5 h-5 mr-2 text-green-500"></i>
+                                Environmental Impact Visualization
+                            </h4>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div class="text-center p-6 bg-gradient-to-br from-red-50 to-orange-50 rounded-lg border border-red-100">
+                                    <i data-lucide="alert-circle" class="w-8 h-8 text-red-500 mx-auto mb-2"></i>
+                                    <h5 class="font-medium text-red-800 mb
